@@ -96,7 +96,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`/Users/Procacci/Documents/GitHub/frontEndHack/react-admin/public/assests/user.png`}
+                  src="/assests/user.png"
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
