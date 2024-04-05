@@ -4,30 +4,7 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 //
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCFyDc88KX70VqY7BYx2TlNt6le0xHfwpc",
-  authDomain: "ide-analytics.firebaseapp.com",
-  databaseURL: "https://ide-analytics-default-rtdb.firebaseio.com",
-  projectId: "ide-analytics",
-  storageBucket: "ide-analytics.appspot.com",
-  messagingSenderId: "242405334050",
-  appId: "1:242405334050:web:c3528d0ce2534fb585be7b",
-  measurementId: "G-9KCDZRQ9C6"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-//
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
