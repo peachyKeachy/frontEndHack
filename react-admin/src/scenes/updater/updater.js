@@ -1,7 +1,7 @@
 //  Author: Sinowa-Programming
 //  Desc: This file takes in data from a firebase database and updates the site
-import Dashboard from '../dashboard/index.jsx'
-
+import {Dashboard, updateDashboard} from '../dashboard/index.jsx'
+import { setPieData } from '../../data/mockData.js';
 
 const goals = {
     "keyCounter":0, 
@@ -36,12 +36,35 @@ export const updateSite = ( data ) => {
         totals["linesAdded"] += value["linesAdded"];
         totals["linesRemoved"] += value["linesRemoved"];
         
-        // console.log(`${key}: ${value}`);a
     }
 
-    console.log(totals)
-    console.log(Dashboard.linesAdded)
-    // document.getElementById('linesRemoved').title = totals["linesRemoved"];
+    
+    updateDashboard(totals)
 
+    // Generate the pie data
+    const pieColors = ["hsl(104, 70%, 50%)", "hsl(162, 70%, 50%)", "hsl(291, 70%, 50%)", "hsl(229, 70%, 50%)","hsl(344, 70%, 50%)"]
+    let languageCnt = totals["currentLanguage"].length  // The amount of language in the pie chart
 
+    let languageMakeup = {} // A dictionary that holds the count of every language present from the totals dict
+    for(const language in totals["currentLanguage"]) {  // Count the languages
+        if( languageMakeup[totals["currentLanguage"][language]] === undefined ) {
+            languageMakeup[totals["currentLanguage"][language]] = 1;
+        } else {
+            languageMakeup[totals["currentLanguage"][language]] += 1
+        }
+    }
+
+    let pieData = []
+    let i = 0;  // indexer for the pie colors
+    for( const language in languageMakeup ) {
+        pieData.push({  // Add the pie colors to the pie data
+            id: language,
+            label: language,
+            value: (languageMakeup[language]/languageCnt) * 1000,
+            color: pieColors[i],
+        });
+        i += 1;
+    }
+
+    setPieData(pieData) // Display the data
 }

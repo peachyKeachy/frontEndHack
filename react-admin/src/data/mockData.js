@@ -397,7 +397,7 @@ export const mockBarData = [
   },
 ];
 
-export const mockPieData = [
+export var mockPieData = [
   {
     id: "hack",
     label: "hack",
@@ -594,3 +594,8 @@ export const mockLineData = [
     ],
   },
 ];
+
+
+export function setPieData( newPieData ) {
+  mockPieData = newPieData
+}

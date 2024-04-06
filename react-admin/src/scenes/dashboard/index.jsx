@@ -11,11 +11,29 @@ import PieChart from "../../components/PieChart"; // Imported PieChart component
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import React, { useState } from 'react';
 
-const Dashboard = () => {
+var updateStates
+
+
+export function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  // This allows an external file to edit the values
+  var [linesAdd, addLines ] = useState(0);
+  var [linesRem, remLines ] = useState(0);
+  var [keyCnt, setKeyCnt ] = useState(0);
+  var [timeFraction, setTimeFraction ] = useState(".5");
+
+  // Display the data
+  updateStates = ( data ) => {
+    addLines( data["linesAdded"] )
+    remLines( data["linesRemoved"] )
+    setKeyCnt( data["keyCounter"] )
+    setTimeFraction(  data["totalTimeOutFocus"]/ (data["totalTimeInFocus"] + data["totalTimeOutFocus"]) )
+  }
+  
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -54,8 +72,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
+            title={linesAdd}
+            subtitle="Lines Added"
             progress="0.75"
             increase="+14%"
             icon={
@@ -73,8 +91,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
+            title={linesRem}
+            subtitle="Lines Removed"
             progress="0.50"
             increase="+21%"
             icon={
@@ -92,8 +110,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title={keyCnt}
+            subtitle="Key counter"
             progress="0.30"
             increase="+5%"
             icon={
@@ -123,14 +141,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
+                Company Programming Makeup
               </Typography>
             </Box>
             <Box>
@@ -143,7 +154,7 @@ const Dashboard = () => {
           </Box>
           <Box height="250px" m="-20px 0 0 0">
             {/* Replaced LineChart with PieChart */}
-            <PieChart />
+            <PieChart  />
           </Box>
         </Box>
         <Box
@@ -175,7 +186,7 @@ const Dashboard = () => {
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Time
           </Typography>
           <Box
             display="flex"
@@ -183,15 +194,15 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" />
+            <ProgressCircle size="125" progress={timeFraction.toString()} />
             <Typography
               variant="h5"
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              $48,352 revenue generated
+              {(timeFraction*100).toString()}% of time spent out of focus
             </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+            <Typography>Fraction of time spent in and out of focus</Typography>
           </Box>
         </Box>
         <Box
@@ -216,4 +227,8 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+
+// Exports the updateStates so other files can edit the dashboard
+export function updateDashboard( data ) {
+  updateStates( data )
+}

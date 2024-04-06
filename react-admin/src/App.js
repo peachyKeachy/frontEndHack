@@ -7,7 +7,7 @@ import Bar from "./scenes/bar";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
-import Dashboard from "./scenes/dashboard";
+import {Dashboard} from "./scenes/dashboard";
 
 
 function App() {
