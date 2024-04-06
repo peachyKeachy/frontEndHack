@@ -31,7 +31,7 @@ export function Dashboard() {
     addLines( data["linesAdded"] )
     remLines( data["linesRemoved"] )
     setKeyCnt( data["keyCounter"] )
-    setTimeFraction(  data["totalTimeOutFocus"]/ (data["totalTimeInFocus"] + data["totalTimeOutFocus"]) )
+    setTimeFraction(  (data["totalTimeOutFocus"]/ (data["totalTimeInFocus"] + data["totalTimeOutFocus"])) )
   }
   
   return (
@@ -200,7 +200,7 @@ export function Dashboard() {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              {(timeFraction*100).toString()}% of time spent out of focus
+              {(Math.round(timeFraction*100)).toString()}% of time spent out of focus
             </Typography>
             <Typography>Fraction of time spent in and out of focus</Typography>
           </Box>
